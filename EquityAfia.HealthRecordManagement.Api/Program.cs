@@ -1,11 +1,37 @@
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
+using FluentValidation;
+using MediatR;
+using MedicalRecords.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register ApplicationDbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register MediatR
+builder.Services.AddMediatR(typeof(LabResultsUploadCommandHandler).Assembly);
+
+builder.Services.AddAutoMapper(typeof(LabResultsUploadCommandHandler));
+
+builder.Services.AddTransient<IRequestHandler<LabResultsUploadCommand ,Response>, LabResultsUploadCommandHandler>();
+
+// Register FluentValidation
+//builder.Services.AddValidatorsFromAssemblyContaining<LabResultsUploadCommandValidator>();
+
+// Register custom repository
+builder.Services.AddScoped<ILabResultsRepository, LabResultsRepository>();
 
 var app = builder.Build();
 
