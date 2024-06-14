@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using MediatR;
 using EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entities;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
+using Microsoft.AspNetCore.Http;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 
 namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand
 {
-    public class LabResultsUploadCommandHandler : IRequestHandler<LabResultsUploadCommand, Guid>
+    public class LabResultsUploadCommandHandler : IRequestHandler<LabResultsUploadCommand, Response>
     {
         private readonly ILabResultsRepository _labResultsRepository;
 
@@ -17,39 +19,55 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             _labResultsRepository = labResultsRepository;
         }
 
-        public async Task<Guid> Handle(LabResultsUploadCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(LabResultsUploadCommand request, CancellationToken cancellationToken)
         {
-            var labResultId = Guid.NewGuid();
-            var uploadsRootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-            Directory.CreateDirectory(uploadsRootFolder);
+            var labResult = request.LabResults;
+            var labResultId =Guid.NewGuid();
 
-            var testImagePath = Path.Combine(uploadsRootFolder, $"{labResultId}_test_{request.TestImage.FileName}");
-            var resultsImagePath = Path.Combine(uploadsRootFolder, $"{labResultId}_results_{request.ResultsImage.FileName}");
+            byte[] testimage =await  ProcessFile(labResult.TestImage);
 
-            using (var testStream = new FileStream(testImagePath, FileMode.Create))
-            {
-                await request.TestImage.CopyToAsync(testStream);
-            }
+            byte[] resultimage = await ProcessFile(labResult.ResultsImage);
 
-            using (var resultsStream = new FileStream(resultsImagePath, FileMode.Create))
-            {
-                await request.ResultsImage.CopyToAsync(resultsStream);
-            }
 
             var labResults = new LabResults
             {
                 Id = labResultId,
-                Diagnosis = request.Diagnosis,
-                Test = request.Test,
-                Results = request.Results,
-                Prescriptions = request.Prescriptions,
-                TestImagePath = testImagePath,
-                ResultsImagePath = resultsImagePath
+                Diagnosis = labResult.Diagnosis,
+                Test = labResult.Test,
+                Results = labResult.Results,
+                Prescriptions = labResult.Prescriptions,
+                TestImage = testimage,
+                ResultsImage = resultimage
             };
 
             await _labResultsRepository.AddAsync(labResults);
 
-            return labResultId;
+            var response = new Response
+            {
+                UserId = labResultId,
+                Diagnosis = labResult.Diagnosis,
+                Test = labResult.Test,
+                Results = labResult.Results,
+                Prescriptions = labResult.Prescriptions,
+                TestImage = labResult.TestImage,
+                ResultsImage = labResult.ResultsImage
+            };
+
+            return response;
+        }
+
+        private async Task<byte[]> ProcessFile(IFormFile file)
+        {
+
+            byte[] testimage;
+
+            using (var memorystream = new MemoryStream())
+            {
+                await file.CopyToAsync(memorystream);
+
+                testimage = memorystream.ToArray();
+            } 
+            return testimage;
         }
     }
 }

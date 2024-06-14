@@ -1,5 +1,6 @@
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
 using FluentValidation;
 using MediatR;
@@ -20,10 +21,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(LabResultsUploadCommandHandler).Assembly));
-//builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(typeof(LabResultsUploadCommandHandler).Assembly);
+
+builder.Services.AddAutoMapper(typeof(LabResultsUploadCommandHandler));
+
+builder.Services.AddTransient<IRequestHandler<LabResultsUploadCommand ,Response>, LabResultsUploadCommandHandler>();
+
 // Register FluentValidation
-builder.Services.AddValidatorsFromAssemblyContaining<LabResultsUploadCommandValidator>();
+//builder.Services.AddValidatorsFromAssemblyContaining<LabResultsUploadCommandValidator>();
 
 // Register custom repository
 builder.Services.AddScoped<ILabResultsRepository, LabResultsRepository>();

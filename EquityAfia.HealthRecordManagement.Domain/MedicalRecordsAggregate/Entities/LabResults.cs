@@ -7,9 +7,7 @@
         public string Test { get; set; }
         public string Results { get; set; }
         public string Prescriptions { get; set; }
-
-        // New properties to store image file paths or content
-        public string TestImagePath { get; set; }
-        public string ResultsImagePath { get; set; }
+        public byte [] TestImage { get; set; }
+        public byte[] ResultsImage { get; set; }
     }
 }

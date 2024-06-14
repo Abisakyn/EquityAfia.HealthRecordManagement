@@ -20,8 +20,8 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Migrations
                     Test = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Results = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Prescriptions = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    TestImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ResultsImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TestImagePath = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ResultsImagePath = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
