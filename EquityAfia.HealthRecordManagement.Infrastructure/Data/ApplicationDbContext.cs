@@ -8,6 +8,7 @@ namespace MedicalRecords.Infrastructure.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<LabResults> LabResults { get; set; }
+        public DbSet<HealthRecords> HealthRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,6 +16,7 @@ namespace MedicalRecords.Infrastructure.Data
 
             // Apply configurations
             modelBuilder.ApplyConfiguration(new LabResultsConfiguration());
+            modelBuilder.ApplyConfiguration(new HealthRecordsConfiguration());
             // Add more configurations here if you have other entities
         }
     }
