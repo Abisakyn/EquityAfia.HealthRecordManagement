@@ -1,4 +1,5 @@
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.HealthRecords;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
@@ -22,16 +23,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register MediatR
 builder.Services.AddMediatR(typeof(LabResultsUploadCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(HealthRecordsCommandHandler).Assembly);
 
 builder.Services.AddAutoMapper(typeof(LabResultsUploadCommandHandler));
 
 builder.Services.AddTransient<IRequestHandler<LabResultsUploadCommand ,Response>, LabResultsUploadCommandHandler>();
-
+builder.Services.AddTransient<IRequestHandler<HealthRecordsCommand, Response>, HealthRecordsCommandHandler>();
 // Register FluentValidation
 //builder.Services.AddValidatorsFromAssemblyContaining<LabResultsUploadCommandValidator>();
 
 // Register custom repository
 builder.Services.AddScoped<ILabResultsRepository, LabResultsRepository>();
+builder.Services.AddScoped<IHealthRecordsRepository, HealthRecordsRepositories>();
 
 var app = builder.Build();
 

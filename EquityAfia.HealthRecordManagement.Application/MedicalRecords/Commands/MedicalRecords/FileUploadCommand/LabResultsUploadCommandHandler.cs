@@ -44,13 +44,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
 
             var response = new Response
             {
-                UserId = labResultId,
-                Diagnosis = labResult.Diagnosis,
-                Test = labResult.Test,
-                Results = labResult.Results,
-                Prescriptions = labResult.Prescriptions,
-                TestImage = labResult.TestImage,
-                ResultsImage = labResult.ResultsImage
+                LabResultsId = labResultId,
             };
 
             return response;

@@ -1,4 +1,5 @@
-﻿using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
+﻿using Azure;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
 using EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entities;
 //using EquityAfia.HealthRecordManagement.Infrastructure.Persistence;
 using MedicalRecords.Infrastructure.Data;
@@ -17,12 +18,10 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Guid> AddAsync(LabResults labResults)
+        public async Task AddAsync(LabResults labResults)
         {
             await _context.LabResults.AddAsync(labResults);
             await _context.SaveChangesAsync();
-
-            return labResults.Id; // Assuming labResults.Id is set correctly during entity creation
         }
     }
 }
