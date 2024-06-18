@@ -3,7 +3,7 @@ using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.Medi
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.MappingProfile;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.PressureMap;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
 using FluentValidation;
 using MediatR;

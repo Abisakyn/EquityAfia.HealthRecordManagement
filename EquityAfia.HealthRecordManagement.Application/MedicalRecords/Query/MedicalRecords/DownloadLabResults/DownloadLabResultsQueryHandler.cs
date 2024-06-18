@@ -1,5 +1,5 @@
 ﻿using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.DownloadLabResultsDTOs;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MediatR;

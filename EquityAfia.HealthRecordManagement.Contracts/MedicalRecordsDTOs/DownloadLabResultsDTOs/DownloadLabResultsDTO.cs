@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs
+namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.DownloadLabResultsDTOs
 {
     public class DownloadLabResultsDTO
     {

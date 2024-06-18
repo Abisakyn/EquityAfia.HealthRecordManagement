@@ -6,7 +6,7 @@ using MediatR;
 using EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entities;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 
 namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand
 {
