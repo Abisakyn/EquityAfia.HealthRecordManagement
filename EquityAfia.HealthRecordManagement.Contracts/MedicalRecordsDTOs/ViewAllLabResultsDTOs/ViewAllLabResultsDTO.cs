@@ -9,6 +9,5 @@ namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAll
     public class ViewAllLabResultsDTO
     {
         public string IdNumber { get; set; }
-        public int MyProperty { get; set; }
     }
 }

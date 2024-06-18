@@ -18,7 +18,7 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Configuration.EntityC
 
             builder.Property(e => e.Diagnosis)
                    .IsRequired()
-                   .HasMaxLength(100); // Example: Set max length and required
+                   .HasMaxLength(100); 
 
             builder.Property(e => e.Test)
                    .IsRequired();
@@ -27,9 +27,9 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Configuration.EntityC
                    .IsRequired();
 
             builder.Property(e => e.Prescriptions)
-                   .HasMaxLength(200); // Example: Set max length
+                   .HasMaxLength(200); 
 
-            // Configure additional constraints, relationships, etc.
+            
         }
     }
 }
