@@ -4,6 +4,7 @@ using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Medical
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.ViewAllLabResults;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.DownloadLabResultsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAllLabResultsDTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -47,13 +48,13 @@ namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords
             };
         }
 
-        //[HttpGet("ViewLabResults")]
-        //public async Task<IActionResult> ViewAllLabResults(string idNumber)
-        //{
-        //    var query = new ViewAllLabResultsQuery(idNumber);
-        //    var result = await _mediator.Send(query);
-        //    return Ok(result);
-        //}
+        [HttpGet("ViewLabResults")]
+        public async Task<IActionResult> ViewAllLabResults([FromQuery] ViewAllLabResultsDTO viewAllLabResultsDTO)
+        {
+            var query = new ViewAllLabResultsQuery(viewAllLabResultsDTO);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
 
 
     }
