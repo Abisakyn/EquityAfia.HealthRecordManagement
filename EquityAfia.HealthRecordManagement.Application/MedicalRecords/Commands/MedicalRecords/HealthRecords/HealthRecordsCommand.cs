@@ -1,4 +1,4 @@
-﻿using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+﻿using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.HealthRecords;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
@@ -9,6 +8,7 @@ using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Medical
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.PressureMapDTOs;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAllHealthRecordsDTOs;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.ViewAllMedicalRecords;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 
 
 namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords

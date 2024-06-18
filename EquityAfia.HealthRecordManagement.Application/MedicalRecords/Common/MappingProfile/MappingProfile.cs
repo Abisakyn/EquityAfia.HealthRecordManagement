@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entities;
 
 namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.MappingProfile

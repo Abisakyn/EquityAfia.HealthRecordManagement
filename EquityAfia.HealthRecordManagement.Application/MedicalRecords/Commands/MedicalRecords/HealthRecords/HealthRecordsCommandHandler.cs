@@ -1,5 +1,5 @@
 ﻿using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
-using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entities;
 using MediatR;
 using System;

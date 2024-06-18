@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs
+namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common
 {
     public class LabResultsDTO
     {
