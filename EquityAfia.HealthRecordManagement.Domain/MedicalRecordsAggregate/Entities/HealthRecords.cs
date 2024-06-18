@@ -5,6 +5,7 @@ namespace EquityAfia.HealthRecordManagement.Domain.MedicalRecordsAggregate.Entit
     public class HealthRecords
     {
         public Guid HealthRecordsId {  get; set; }
+        public string? IdNumber { get; set; }
         public DateTime Date {  get; set; } 
         public string? Systolic { get; set; }
         public string? Diastolic { get; set; }

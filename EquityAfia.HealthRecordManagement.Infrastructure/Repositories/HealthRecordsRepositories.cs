@@ -29,5 +29,15 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Repositories
             return await _context.HealthRecords
                 .FirstOrDefaultAsync(u => u.HealthRecordsId == healthRecordsId);
         }
+
+        public async Task<List<HealthRecords>> GetAllHealthRecordsAsync(string idNumber)
+        {
+            return await _context.HealthRecords
+                .Where(r => r.IdNumber == idNumber)
+                .OrderByDescending(r => r.Date)
+                .Take(7)
+                .ToListAsync();
+        }
+
     }
 }

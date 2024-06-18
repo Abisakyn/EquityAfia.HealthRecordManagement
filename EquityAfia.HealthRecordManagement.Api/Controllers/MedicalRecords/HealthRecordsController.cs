@@ -5,6 +5,10 @@ using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.PressureMap;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.PressureMapDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAllHealthRecordsDTOs;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.ViewAllMedicalRecords;
 
 
 namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords
@@ -28,6 +32,23 @@ namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords
         {
             var command = new HealthRecordsCommand(healthRecordsDTO);
             await _mediator.Send(command);
+            return Ok(command);
+        }
+
+        [HttpGet("PressureMap")]
+        public async Task<IActionResult> DisplayPressureMap([FromQuery]PressureMapDTO pressureMapDTO)
+        {
+            var query = new PressureMapQuery(pressureMapDTO);
+            var records = await _mediator.Send(query);
+            return Ok(records);
+        }
+
+        [HttpGet("ViewAllMedicalRecords")]
+
+        public async Task<IActionResult> ViewAllMedicalRecords([FromQuery] ViewAllHealthRecordsDTO viewAllHealthRecordsDTO)
+        {
+            var query = new ViewAllHealthRecordsQuery(viewAllHealthRecordsDTO);
+            var command = await _mediator.Send(query);
             return Ok(command);
         }
     }

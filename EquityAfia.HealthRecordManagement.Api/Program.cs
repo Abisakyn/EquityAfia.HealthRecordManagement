@@ -1,6 +1,8 @@
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.HealthRecords;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.MappingProfile;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.PressureMap;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs;
 using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
 using FluentValidation;
@@ -26,6 +28,7 @@ builder.Services.AddMediatR(typeof(LabResultsUploadCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(HealthRecordsCommandHandler).Assembly);
 
 builder.Services.AddAutoMapper(typeof(LabResultsUploadCommandHandler));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddTransient<IRequestHandler<LabResultsUploadCommand ,Response>, LabResultsUploadCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<HealthRecordsCommand, Response>, HealthRecordsCommandHandler>();

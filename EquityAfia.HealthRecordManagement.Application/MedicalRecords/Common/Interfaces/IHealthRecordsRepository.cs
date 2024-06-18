@@ -11,5 +11,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.In
     {
         Task<HealthRecords> GetHealthRecordsByHealthRecordsIdAsync(Guid HealthRecordsId);
         Task AddAsync(HealthRecords healthRecords);
+
+        Task<List<HealthRecords>> GetAllHealthRecordsAsync(string IdNumber);   
     }
 }
