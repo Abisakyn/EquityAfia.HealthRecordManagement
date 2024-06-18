@@ -31,6 +31,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             {
                 HealthRecordsId = healthRecordsId,
                 Date = date,
+                IdNumber = healthRecordsDTO.IdNumber,
                 Systolic = healthRecordsDTO.Systolic,
                 Diastolic = healthRecordsDTO.Diastolic,
                 Weight = healthRecordsDTO.Weight,

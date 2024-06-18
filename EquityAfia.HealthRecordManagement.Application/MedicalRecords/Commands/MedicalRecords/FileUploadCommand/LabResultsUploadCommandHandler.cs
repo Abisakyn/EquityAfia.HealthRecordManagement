@@ -24,18 +24,19 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             var labResult = request.LabResults;
             var labResultId =Guid.NewGuid();
 
-            byte[] testimage =await  ProcessFile(labResult.TestImage);
+            byte[] testimage =await  ProcessFile(labResult.TestImage!);
 
-            byte[] resultimage = await ProcessFile(labResult.ResultsImage);
+            byte[] resultimage = await ProcessFile(labResult.ResultsImage!);
 
 
             var labResults = new LabResults
             {
-                Id = labResultId,
-                Diagnosis = labResult.Diagnosis,
-                Test = labResult.Test,
-                Results = labResult.Results,
-                Prescriptions = labResult.Prescriptions,
+                LabResultsId = labResultId,
+                IdNumber =labResult.IdNumber!,
+                Diagnosis = labResult.Diagnosis!,
+                Test = labResult.Test!,
+                Results = labResult.Results!,
+                Prescriptions = labResult.Prescriptions!,
                 TestImage = testimage,
                 ResultsImage = resultimage
             };

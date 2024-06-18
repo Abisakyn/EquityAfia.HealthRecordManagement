@@ -15,6 +15,8 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Configuration.EntityC
         {
             builder.HasKey(e => e.HealthRecordsId);
 
+            builder.Property(e =>e.IdNumber).IsRequired();
+
             builder.Property(e => e.Date).IsRequired();
 
             builder.Property(e => e.Systolic)

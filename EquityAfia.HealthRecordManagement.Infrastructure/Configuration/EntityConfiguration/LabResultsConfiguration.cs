@@ -11,7 +11,10 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Configuration.EntityC
         {
             //builder.ToTable("LabResults"); // Set the table name
 
-            builder.HasKey(e => e.Id); // Set the primary key
+            builder.HasKey(e => e.LabResultsId); // Set the primary key
+
+            builder.Property(e => e.IdNumber)
+                .IsRequired();
 
             builder.Property(e => e.Diagnosis)
                    .IsRequired()

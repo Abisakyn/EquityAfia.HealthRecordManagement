@@ -6,6 +6,9 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.In
 {
     public interface ILabResultsRepository
     {
+        Task<LabResults> GetLabResultsByIdAsync (Guid labResultsId);
         Task AddAsync(LabResults labResults);
+
+        Task<List<LabResults>> GetAllLabResultsAsync(string idNumber);
     }
 }

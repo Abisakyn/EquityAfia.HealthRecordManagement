@@ -23,5 +23,19 @@ namespace EquityAfia.HealthRecordManagement.Infrastructure.Repositories
             await _context.LabResults.AddAsync(labResults);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<LabResults> GetLabResultsByIdAsync(Guid labResultsId)
+        {
+            return await _context.LabResults.FindAsync(labResultsId);
+
+        }
+
+        public async Task<List<LabResults>> GetAllLabResultsAsync(string idNumber)
+        {
+            return await _context.LabResults
+                .Where(r => r.IdNumber == idNumber)
+                //.OrderByDescending(r => r.Date)
+                .ToListAsync();
+        }
     }
 }

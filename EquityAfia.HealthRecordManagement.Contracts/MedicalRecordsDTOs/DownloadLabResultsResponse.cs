@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs
 {
-    public class Response
+    public class DownloadLabResultsResponse
     {
         public Guid LabResultsId { get; set; }
-        public IFormFile TestImage { get; set;}
-
-        public IFormFile ResultImage { get; set;}
-
+        public IFormFile PdfFile { get; set; }
     }
 }
