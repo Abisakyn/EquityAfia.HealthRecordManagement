@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.ViewAllLabResults
 {
-    public  class ViewAllLabResultsQuery : IRequest<ViewAllLabResultsDTOResponse>
+    public  class ViewAllLabResultsQuery : IRequest<List<ViewAllLabResultsDTOResponse>>
     {
         public ViewAllLabResultsDTO LabResults { get; set; }
 
