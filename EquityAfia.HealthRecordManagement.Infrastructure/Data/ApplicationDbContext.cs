@@ -17,7 +17,7 @@ namespace MedicalRecords.Infrastructure.Data
             // Apply configurations
             modelBuilder.ApplyConfiguration(new LabResultsConfiguration());
             modelBuilder.ApplyConfiguration(new HealthRecordsConfiguration());
-            // Add more configurations here if you have other entities
+            
         }
     }
 }

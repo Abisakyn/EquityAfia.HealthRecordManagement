@@ -4,6 +4,7 @@ using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Medical
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.ViewAllLabResults;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.DownloadLabResultsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAllLabResultsDTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -32,28 +33,24 @@ namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords
         }
 
         [HttpGet("DownloadLabResult/{labResultsId}")]
-        public async Task<IActionResult> DownloadLabResult(Guid labResultsId)
+        public async Task<IActionResult> DownloadLabResult([FromQuery] DownloadLabResultsDTO downloadLabResultsDTO)
         {
-            var query = new DownloadLabResultsQuery(new DownloadLabResultsDTO { LabResultsId = labResultsId });
+            var query = new DownloadLabResultsQuery(downloadLabResultsDTO);
             var result = await _mediator.Send(query);
 
-            if (result == null || result.PdfFile == null)
-            {
-                return NotFound();
-            }
             return new FileStreamResult(result.PdfFile.OpenReadStream(), "application/pdf")
             {
-                FileDownloadName = $"LabResults_{labResultsId}.pdf" 
+                FileDownloadName = $"LabResults_{downloadLabResultsDTO.LabResultsId}.pdf" 
             };
         }
 
-        //[HttpGet("ViewLabResults")]
-        //public async Task<IActionResult> ViewAllLabResults(string idNumber)
-        //{
-        //    var query = new ViewAllLabResultsQuery(idNumber);
-        //    var result = await _mediator.Send(query);
-        //    return Ok(result);
-        //}
+        [HttpGet("ViewLabResults")]
+        public async Task<IActionResult> ViewAllLabResults([FromQuery] ViewAllLabResultsDTO viewAllLabResultsDTO)
+        {
+            var query = new ViewAllLabResultsQuery(viewAllLabResultsDTO);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
 
 
     }

@@ -9,10 +9,12 @@ namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAll
 {
     public class ViewAllLabResultsDTOResponse
     {
+      
         public string? Diagnosis { get; set; }
         public string? Test { get; set; }
         public string? Results { get; set; }
         public string? Prescriptions { get; set; }
+        public string? IdNumber { get; set; }
         public IFormFile? TestImage { get; set; }
         public IFormFile? ResultsImage { get; set; }
     }
