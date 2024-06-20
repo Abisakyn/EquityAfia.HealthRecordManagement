@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common
 {
-    public class Response
+    public class LabResultsResponse
     {
         public Guid LabResultsId { get; set; }
         public IFormFile TestImage { get; set; }

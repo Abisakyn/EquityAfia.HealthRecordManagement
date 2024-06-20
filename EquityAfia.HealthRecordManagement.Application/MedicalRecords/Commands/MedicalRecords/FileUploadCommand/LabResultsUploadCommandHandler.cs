@@ -10,7 +10,7 @@ using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 
 namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.MedicalRecords.FileUploadCommand
 {
-    public class LabResultsUploadCommandHandler : IRequestHandler<LabResultsUploadCommand, Response>
+    public class LabResultsUploadCommandHandler : IRequestHandler<LabResultsUploadCommand, LabResultsResponse>
     {
         private readonly ILabResultsRepository _labResultsRepository;
 
@@ -19,36 +19,45 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             _labResultsRepository = labResultsRepository;
         }
 
-        public async Task<Response> Handle(LabResultsUploadCommand request, CancellationToken cancellationToken)
+        public async Task<LabResultsResponse> Handle(LabResultsUploadCommand request, CancellationToken cancellationToken)
         {
-            var labResult = request.LabResults;
-            var labResultId =Guid.NewGuid();
-
-            byte[] testimage =await  ProcessFile(labResult.TestImage!);
-
-            byte[] resultimage = await ProcessFile(labResult.ResultsImage!);
-
-
-            var labResults = new LabResults
+            try
             {
-                LabResultsId = labResultId,
-                IdNumber =labResult.IdNumber!,
-                Diagnosis = labResult.Diagnosis!,
-                Test = labResult.Test!,
-                Results = labResult.Results!,
-                Prescriptions = labResult.Prescriptions!,
-                TestImage = testimage,
-                ResultsImage = resultimage
-            };
+                var labResult = request.LabResults;
+                var labResultId = Guid.NewGuid();
 
-            await _labResultsRepository.AddAsync(labResults);
+                byte[] testimage = await ProcessFile(labResult.TestImage!);
 
-            var response = new Response
+                byte[] resultimage = await ProcessFile(labResult.ResultsImage!);
+
+
+                var labResults = new LabResults
+                {
+                    LabResultsId = labResultId,
+                    IdNumber = labResult.IdNumber!,
+                    Diagnosis = labResult.Diagnosis!,
+                    Test = labResult.Test!,
+                    Results = labResult.Results!,
+                    Prescriptions = labResult.Prescriptions!,
+                    TestImage = testimage,
+                    ResultsImage = resultimage
+                };
+
+                await _labResultsRepository.AddAsync(labResults);
+
+                var response = new LabResultsResponse
+                {
+                    LabResultsId = labResultId,
+                };
+
+                return response;
+
+
+            }
+            catch (Exception ex)
             {
-                LabResultsId = labResultId,
-            };
-
-            return response;
+                throw new Exception("An error occured during processing your request");
+            }
         }
 
         private async Task<byte[]> ProcessFile(IFormFile file)
