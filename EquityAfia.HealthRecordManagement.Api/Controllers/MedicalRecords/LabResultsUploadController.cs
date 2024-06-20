@@ -33,18 +33,14 @@ namespace EquityAfia.HealthRecordManagement.Api.Controllers.MedicalRecords
         }
 
         [HttpGet("DownloadLabResult/{labResultsId}")]
-        public async Task<IActionResult> DownloadLabResult(Guid labResultsId)
+        public async Task<IActionResult> DownloadLabResult([FromQuery] DownloadLabResultsDTO downloadLabResultsDTO)
         {
-            var query = new DownloadLabResultsQuery(new DownloadLabResultsDTO { LabResultsId = labResultsId });
+            var query = new DownloadLabResultsQuery(downloadLabResultsDTO);
             var result = await _mediator.Send(query);
 
-            if (result == null || result.PdfFile == null)
-            {
-                return NotFound();
-            }
             return new FileStreamResult(result.PdfFile.OpenReadStream(), "application/pdf")
             {
-                FileDownloadName = $"LabResults_{labResultsId}.pdf" 
+                FileDownloadName = $"LabResults_{downloadLabResultsDTO.LabResultsId}.pdf" 
             };
         }
 
