@@ -23,23 +23,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configure MassTransit with RabbitMQ and Kafka
+// Configure MassTransit with Kafka only
 builder.Services.AddMassTransit(x =>
 {
-    
-    x.UsingRabbitMq((context, cfg) => cfg.ConfigureEndpoints(context));
-
     // Kafka configuration
     x.AddRider(rider =>
     {
         // Register Kafka consumers and producers
-        rider.AddConsumer<UserExistConsumer>(); 
+        rider.AddConsumer<UserExistConsumer>();
         rider.AddProducer<UserExistEvent>(nameof(UserExistEvent));
 
         // Configure Kafka host and topic endpoints
         rider.UsingKafka((context, k) =>
         {
-            k.Host("localhost:9092"); 
+            k.Host("localhost:9092");
             k.TopicEndpoint<UserExistEvent>("UserExists", "consumer-group-id", e =>
             {
                 e.ConfigureConsumer<UserExistConsumer>(context);
@@ -55,7 +52,6 @@ builder.Services.AddMediatR(typeof(LabResultsUploadCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(HealthRecordsCommandHandler).Assembly);
 
 // Register AutoMapper
-//builder.Services.AddAutoMapper(typeof(LabResultsUploadCommandHandler));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register handlers for commands
