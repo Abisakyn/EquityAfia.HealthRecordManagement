@@ -3,9 +3,11 @@ using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.Medi
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.Interfaces;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Common.MappingProfile;
 using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.DownloadLabResults;
+using EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.MedicalRecords.PressureMap;
 using EquityAfia.HealthRecordManagement.Contracts.Events.UserExist;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.Common;
 using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.DownloadLabResultsDTOs;
+using EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.PressureMapDTOs;
 using EquityAfia.HealthRecordManagement.Infrastructure.Repositories;
 using FluentValidation;
 using MassTransit;
@@ -62,7 +64,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddTransient<IRequestHandler<LabResultsUploadCommand, LabResultsResponse>, LabResultsUploadCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<HealthRecordsCommand, HealthRecordsResponse>, HealthRecordsCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<DownloadLabResultsQuery, DownloadLabResultsResponse>, DownloadLabResultsQueryHandler>();
-
+builder.Services.AddTransient<IRequestHandler<PressureMapQuery, PressureMapResponse>, PressureMapQueryHandler>();
 // Register FluentValidation validators if needed
 // builder.Services.AddValidatorsFromAssemblyContaining<LabResultsUploadCommandValidator>();
 
