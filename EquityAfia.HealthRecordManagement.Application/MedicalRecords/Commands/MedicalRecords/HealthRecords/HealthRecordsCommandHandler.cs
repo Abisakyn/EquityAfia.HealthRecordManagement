@@ -15,26 +15,26 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
     public class HealthRecordsCommandHandler : IRequestHandler<HealthRecordsCommand, HealthRecordsResponse>
     {
         private readonly IHealthRecordsRepository _healthRecordsRepository;
-        private readonly IRequestClient<UserExistEvent> _userExistsRequestClient;
+        //private readonly IRequestClient<UserExistEvent> _userExistsRequestClient;
 
-        public HealthRecordsCommandHandler(IHealthRecordsRepository healthRecordsRepository, IRequestClient<UserExistEvent> userExistsRequestClient)
+        public HealthRecordsCommandHandler(IHealthRecordsRepository healthRecordsRepository)
         {
             _healthRecordsRepository = healthRecordsRepository;
-            _userExistsRequestClient = userExistsRequestClient;
+            //_userExistsRequestClient = userExistsRequestClient;
         }
 
         public async Task<HealthRecordsResponse> Handle(HealthRecordsCommand command, CancellationToken cancellationToken)
         {
             var healthRecordsDTO = command.HealthRecords;
 
-            // Check if user exists
-            var response = await _userExistsRequestClient.GetResponse<UserExistResponse>(
-                new UserExistEvent { IdNumber = healthRecordsDTO.IdNumber });
+            //// Check if user exists
+            //var response = await _userExistsRequestClient.GetResponse<UserExistResponse>(
+            //    new UserExistEvent { IdNumber = healthRecordsDTO.IdNumber });
 
-            if (!response.Message.Exists)
-            {
-                throw new Exception("User does not exist");
-            }
+            //if (!response.Message.Exists)
+            //{
+            //    throw new Exception("User does not exist");
+            //}
 
             var date = DateTime.UtcNow;
 
