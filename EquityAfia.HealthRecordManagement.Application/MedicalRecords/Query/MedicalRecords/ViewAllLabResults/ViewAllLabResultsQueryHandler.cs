@@ -23,26 +23,38 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
 
         public async Task<List<ViewAllLabResultsDTOResponse>> Handle(ViewAllLabResultsQuery viewAllLabResultsQuery, CancellationToken cancellationToken)
         {
-            var idNumber = viewAllLabResultsQuery.LabResults.IdNumber;
-            var labResults = await _resultsRepository.GetAllLabResultsAsync(idNumber);
-
-            var responses = labResults.Select(r => new ViewAllLabResultsDTOResponse
+            try
             {
-                IdNumber = r.IdNumber,
-                Diagnosis = r.Diagnosis,
-                Test = r.Test,
-                Results = r.Results,
-                Prescriptions = r.Prescriptions,
-                TestImage = ProcessFile(r.TestImage),
-                ResultsImage = ProcessFile(r.ResultsImage)
-            }).ToList();
+                var idNumber = viewAllLabResultsQuery.LabResults.IdNumber;
+                var labResults = await _resultsRepository.GetAllLabResultsAsync(idNumber);
 
-            return responses;
+                var responses = labResults.Select(r => new ViewAllLabResultsDTOResponse
+                {
+                    IdNumber = r.IdNumber,
+                    Diagnosis = r.Diagnosis,
+                    Test = r.Test,
+                    Results = r.Results,
+                    Prescriptions = r.Prescriptions,
+                    TestImage = ProcessFile(r.TestImage),
+                    ResultsImage = ProcessFile(r.ResultsImage)
+                }).ToList();
+
+                return responses;
+            }catch (Exception ex)
+            {
+                throw new Exception("An error occured while processing your request");
+            }
         }
 
         private IFormFile ProcessFile(byte[] fileBytes)
         {
-            return FormFileHelper.CreateFormFile(fileBytes);
+            try
+            {
+                return FormFileHelper.CreateFormFile(fileBytes);
+            }catch (Exception ex)
+            {
+                throw new Exception("an error occured while converting files");
+            }
         }
     }
 }
