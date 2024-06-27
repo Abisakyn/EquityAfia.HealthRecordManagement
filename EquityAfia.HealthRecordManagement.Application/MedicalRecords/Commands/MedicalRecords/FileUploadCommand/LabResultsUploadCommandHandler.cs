@@ -56,7 +56,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occured during processing your request");
+                throw new Exception("An error occured during processing your request",ex);
             }
         }
 

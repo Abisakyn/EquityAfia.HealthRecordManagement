@@ -25,43 +25,51 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
 
         public async Task<HealthRecordsResponse> Handle(HealthRecordsCommand command, CancellationToken cancellationToken)
         {
-            var healthRecordsDTO = command.HealthRecords;
-
-            //// Check if user exists
-            //var response = await _userExistsRequestClient.GetResponse<UserExistResponse>(
-            //    new UserExistEvent { IdNumber = healthRecordsDTO.IdNumber });
-
-            //if (!response.Message.Exists)
-            //{
-            //    throw new Exception("User does not exist");
-            //}
-
-            var date = DateTime.UtcNow;
-
-            var healthRecordsId =Guid.NewGuid();
-
-            var healthRecord = new Domain.MedicalRecordsAggregate.Entities.HealthRecords
+            try
             {
-                HealthRecordsId = healthRecordsId,
-                Date = date,
-                IdNumber = healthRecordsDTO.IdNumber,
-                Systolic = healthRecordsDTO.Systolic,
-                Diastolic = healthRecordsDTO.Diastolic,
-                Weight = healthRecordsDTO.Weight,
-                Height = healthRecordsDTO.Height,
-            };
+                var healthRecordsDTO = command.HealthRecords;
 
-            await _healthRecordsRepository.AddAsync(healthRecord);
+                //// Check if user exists
+                //var response = await _userExistsRequestClient.GetResponse<UserExistResponse>(
+                //    new UserExistEvent { IdNumber = healthRecordsDTO.IdNumber });
 
-            var responseDTO = new HealthRecordsResponse
+                //if (!response.Message.Exists)
+                //{
+                //    throw new Exception("User does not exist");
+                //}
+
+                var date = DateTime.UtcNow;
+
+                var healthRecordsId = Guid.NewGuid();
+
+                var healthRecord = new Domain.MedicalRecordsAggregate.Entities.HealthRecords
+                {
+                    HealthRecordsId = healthRecordsId,
+                    Date = date,
+                    IdNumber = healthRecordsDTO.IdNumber,
+                    Systolic = healthRecordsDTO.Systolic,
+                    Diastolic = healthRecordsDTO.Diastolic,
+                    Weight = healthRecordsDTO.Weight,
+                    Height = healthRecordsDTO.Height,
+                };
+
+                await _healthRecordsRepository.AddAsync(healthRecord);
+
+                var responseDTO = new HealthRecordsResponse
+                {
+                    HealthRecordsId = healthRecordsId,
+                    Systolic = healthRecordsDTO.Systolic,
+                    Diastolic = healthRecordsDTO.Diastolic,
+                    Weight = healthRecordsDTO.Weight,
+                    Height = healthRecordsDTO.Height,
+                };
+
+                return responseDTO;
+
+            }catch (Exception ex)
             {
-                HealthRecordsId = healthRecordsId,
-                Systolic=healthRecordsDTO.Systolic,
-                Diastolic=healthRecordsDTO.Diastolic,
-                Weight = healthRecordsDTO.Weight,
-                Height=healthRecordsDTO.Height,
-            };
-            return responseDTO;
+                throw new Exception("an error occured while processing your request", ex);
+            }
         }
     } 
 }
