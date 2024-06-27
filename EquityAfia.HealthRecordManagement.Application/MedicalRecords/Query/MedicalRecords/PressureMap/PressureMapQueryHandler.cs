@@ -24,20 +24,32 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
 
         public async Task<PressureMapResponse> Handle(PressureMapQuery pressureMapQuery, CancellationToken cancellationToken)
         {
-            var healthRecords = await _healthRecordsRepository.GetAllHealthRecordsAsync( pressureMapQuery.HealthRecords.IdNumber);
-
-            var chartLabels = healthRecords.Select(r => r.Date.ToShortDateString()).ToArray();
-            var systolicData = healthRecords.Select(r => r.Systolic).ToArray();
-            var diastolicData = healthRecords.Select(r => r.Diastolic).ToArray();
-
-            var response = new PressureMapResponse
+            try
             {
-                ChartLabel = chartLabels,
-                SystolicData = systolicData,
-                DiastolicData = diastolicData
+                var healthRecords = await _healthRecordsRepository.GetAllHealthRecordsAsync(pressureMapQuery.HealthRecords.IdNumber);
 
-            };
-            return response;
+                if (healthRecords == null)
+                {
+                    throw new Exception("You dont have any records yet");
+                }
+
+                var chartLabels = healthRecords.Select(r => r.Date.ToShortDateString()).ToArray();
+                var systolicData = healthRecords.Select(r => r.Systolic).ToArray();
+                var diastolicData = healthRecords.Select(r => r.Diastolic).ToArray();
+
+                var response = new PressureMapResponse
+                {
+                    ChartLabel = chartLabels,
+                    SystolicData = systolicData,
+                    DiastolicData = diastolicData
+
+                };
+                return response;
+            }catch (Exception ex)
+            {
+                throw new Exception("An error occured while processing your request",ex);
+            }
+
     }
     }
 
