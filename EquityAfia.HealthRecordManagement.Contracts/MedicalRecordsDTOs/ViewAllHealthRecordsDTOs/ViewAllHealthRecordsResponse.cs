@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EquityAfia.HealthRecordManagement.Contracts.MedicalRecordsDTOs.ViewAllHealthRecordsDTOs
 {
-    public class ViewAllHealthRecordsResponse
+    public class ViewAllHealthRecordsResponse 
     {
         public string? Systolic { get; set; }
         public string? Diastolic { get; set; }
