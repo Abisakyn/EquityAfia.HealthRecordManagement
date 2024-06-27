@@ -19,22 +19,29 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
 
         public async Task<List<ViewAllHealthRecordsResponse>> Handle(ViewAllHealthRecordsQuery viewAllHealthRecordsQuery, CancellationToken cancellationToken)
         {
-            var idNumber = viewAllHealthRecordsQuery.ViewAllHealthRecords.IdNumber;
-            var healthRecords = await _healthRecordsRepository.GetAllHealthRecordsAsync(idNumber);
+            try
+            {
+                var idNumber = viewAllHealthRecordsQuery.ViewAllHealthRecords.IdNumber;
+                var healthRecords = await _healthRecordsRepository.GetAllHealthRecordsAsync(idNumber);
 
 
-            var response = healthRecords
-                .OrderByDescending(r => r.Date)
-                .Select(r => new ViewAllHealthRecordsResponse
-                {
-                    Systolic = r.Systolic,
-                    Diastolic = r.Diastolic,
-                    Height = r.Height,
-                    Weight = r.Weight,
-                })
-                .ToList();
+                var response = healthRecords
+                    .OrderByDescending(r => r.Date)
+                    .Select(r => new ViewAllHealthRecordsResponse
+                    {
+                        Systolic = r.Systolic,
+                        Diastolic = r.Diastolic,
+                        Height = r.Height,
+                        Weight = r.Weight,
+                    })
+                    .ToList();
 
-            return response;
+                return response;
+
+            }catch (Exception ex)
+            {
+                throw new Exception("an error occured processing your request");
+            }
         }
     }
 }
