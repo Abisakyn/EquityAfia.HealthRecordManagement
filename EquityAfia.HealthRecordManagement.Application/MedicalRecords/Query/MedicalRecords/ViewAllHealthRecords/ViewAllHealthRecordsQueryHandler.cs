@@ -40,7 +40,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
 
             }catch (Exception ex)
             {
-                throw new Exception("an error occured processing your request");
+                throw new Exception("an error occured processing your request",ex);
             }
         }
     }

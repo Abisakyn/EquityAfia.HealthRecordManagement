@@ -62,16 +62,22 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
 
         private async Task<byte[]> ProcessFile(IFormFile file)
         {
-
-            byte[] testimage;
-
-            using (var memorystream = new MemoryStream())
+            try
             {
-                await file.CopyToAsync(memorystream);
+                byte[] testimage;
 
-                testimage = memorystream.ToArray();
-            } 
-            return testimage;
+                using (var memorystream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memorystream);
+
+                    testimage = memorystream.ToArray();
+                }
+                return testimage;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to convert to byte",ex);
+            }
         }
     }
 }
