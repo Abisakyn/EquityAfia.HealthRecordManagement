@@ -42,7 +42,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
                 return responses;
             }catch (Exception ex)
             {
-                throw new Exception("An error occured while processing your request");
+                throw new Exception("An error occured while processing your request",ex);
             }
         }
 
@@ -53,7 +53,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Query.Med
                 return FormFileHelper.CreateFormFile(fileBytes);
             }catch (Exception ex)
             {
-                throw new Exception("an error occured while converting files");
+                throw new Exception("an error occured while converting files",ex);
             }
         }
     }
