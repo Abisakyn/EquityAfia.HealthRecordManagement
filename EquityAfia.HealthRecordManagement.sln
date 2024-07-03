@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.HealthRecordManagement.Api", "EquityAfia.HealthRecordManagement.Api\EquityAfia.HealthRecordManagement.Api.csproj", "{246F5AB7-2A84-4C0F-809D-43212DA29B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquityAfia.HealthRecordManagement.Api", "EquityAfia.HealthRecordManagement.Api\EquityAfia.HealthRecordManagement.Api.csproj", "{246F5AB7-2A84-4C0F-809D-43212DA29B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.HealthRecordManagement.Domain", "EquityAfia.HealthRecordManagement.Domain\EquityAfia.HealthRecordManagement.Domain.csproj", "{81264414-BA47-45FF-B0CC-036D86874E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquityAfia.HealthRecordManagement.Domain", "EquityAfia.HealthRecordManagement.Domain\EquityAfia.HealthRecordManagement.Domain.csproj", "{81264414-BA47-45FF-B0CC-036D86874E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.HealthRecordManagement.Application", "EquityAfia.HealthRecordManagement.Application\EquityAfia.HealthRecordManagement.Application.csproj", "{E2FE9C96-95A9-4D95-BA7E-7190A889041D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquityAfia.HealthRecordManagement.Application", "EquityAfia.HealthRecordManagement.Application\EquityAfia.HealthRecordManagement.Application.csproj", "{E2FE9C96-95A9-4D95-BA7E-7190A889041D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.HealthRecordManagement.Contracts", "EquityAfia.HealthRecordManagement.Contracts\EquityAfia.HealthRecordManagement.Contracts.csproj", "{BD145DD1-82D6-4494-B3C0-B147DB4AEEAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquityAfia.HealthRecordManagement.Contracts", "EquityAfia.HealthRecordManagement.Contracts\EquityAfia.HealthRecordManagement.Contracts.csproj", "{BD145DD1-82D6-4494-B3C0-B147DB4AEEAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.HealthRecordManagement.Infrastructure", "EquityAfia.HealthRecordManagement.Infrastructure\EquityAfia.HealthRecordManagement.Infrastructure.csproj", "{3168B543-76BE-4020-893C-1F36FF1E53BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquityAfia.HealthRecordManagement.Infrastructure", "EquityAfia.HealthRecordManagement.Infrastructure\EquityAfia.HealthRecordManagement.Infrastructure.csproj", "{3168B543-76BE-4020-893C-1F36FF1E53BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquityAfia.SharedContracts", "EquityAfia.SharedContracts\EquityAfia.SharedContracts.csproj", "{2B16093E-C2FF-44A6-A4FD-6EA442361EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3168B543-76BE-4020-893C-1F36FF1E53BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3168B543-76BE-4020-893C-1F36FF1E53BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3168B543-76BE-4020-893C-1F36FF1E53BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B16093E-C2FF-44A6-A4FD-6EA442361EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B16093E-C2FF-44A6-A4FD-6EA442361EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B16093E-C2FF-44A6-A4FD-6EA442361EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B16093E-C2FF-44A6-A4FD-6EA442361EBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EquityAfia.HealthRecordManagement.Contracts\EquityAfia.HealthRecordManagement.Contracts.csproj" />
     <ProjectReference Include="..\EquityAfia.HealthRecordManagement.Domain\EquityAfia.HealthRecordManagement.Domain.csproj" />
+    <ProjectReference Include="..\EquityAfia.SharedContracts\EquityAfia.SharedContracts.csproj" />
   </ItemGroup>
 
 </Project>
