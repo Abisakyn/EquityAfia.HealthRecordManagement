@@ -38,7 +38,7 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
                 await _publishEndpoint.Publish(userExistsRequest);
 
                 // Wait for response from UserExists check with explicit timeout
-                var response = await _userExistsRequestClient.GetResponse<UserExists>(userExistsRequest, timeout: RequestTimeout.After(TimeSpan.FromSeconds(30)), cancellationToken);
+                var response = await _userExistsRequestClient.GetResponse<UserExists>(userExistsRequest, cancellationToken);
 
                 // Check if user exists based on the response
                 if (!response.Message.Exists)
