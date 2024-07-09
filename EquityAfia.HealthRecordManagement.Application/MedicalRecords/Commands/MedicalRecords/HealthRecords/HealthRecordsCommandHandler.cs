@@ -14,11 +14,13 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
     {
         private readonly IHealthRecordsRepository _healthRecordsRepository;
         private readonly IRequestClient<UserExists> _userExistsRequestClient;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public HealthRecordsCommandHandler(IHealthRecordsRepository healthRecordsRepository, IRequestClient<UserExists> userExistsRequestClient)
+        public HealthRecordsCommandHandler(IHealthRecordsRepository healthRecordsRepository, IRequestClient<UserExists> userExistsRequestClient, IPublishEndpoint publishEndpoint)
         {
             _healthRecordsRepository = healthRecordsRepository;
             _userExistsRequestClient = userExistsRequestClient;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<HealthRecordsResponse> Handle(HealthRecordsCommand command, CancellationToken cancellationToken)
@@ -27,18 +29,24 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
             {
                 var healthRecordsDTO = command.HealthRecords;
 
-                // Check if user exists
-                var response = await _userExistsRequestClient.GetResponse<UserExists>(new UserExists
+                var userExistsRequest = new UserExists
                 {
-                    IdNumber = healthRecordsDTO.IdNumber!
-                });
+                    IdNumber = healthRecordsDTO.IdNumber
+                };
 
-                var userExistsResponse = response.Message;
-                if (userExistsResponse == null)
+                // Publish UserExists event
+                await _publishEndpoint.Publish(userExistsRequest);
+
+                // Wait for response from UserExists check with explicit timeout
+                var response = await _userExistsRequestClient.GetResponse<UserExists>(userExistsRequest, timeout: RequestTimeout.After(TimeSpan.FromSeconds(30)), cancellationToken);
+
+                // Check if user exists based on the response
+                if (!response.Message.Exists)
                 {
                     throw new Exception("User does not exist");
                 }
 
+                // User exists, proceed with recording health records
                 var date = DateTime.UtcNow;
                 var healthRecordsId = Guid.NewGuid();
 
@@ -51,13 +59,15 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
                     Diastolic = healthRecordsDTO.Diastolic,
                     Weight = healthRecordsDTO.Weight,
                     Height = healthRecordsDTO.Height,
-                    FirstName = userExistsResponse.FirstName,
-                    LastName = userExistsResponse.LastName,
-                    Email = userExistsResponse.Email
+                    FirstName = response.Message.FirstName,
+                    LastName = response.Message.LastName,
+                    Email = response.Message.Email
                 };
 
+                // Add health record to repository
                 await _healthRecordsRepository.AddAsync(healthRecord);
 
+                // Prepare and return response DTO
                 var responseDTO = new HealthRecordsResponse
                 {
                     HealthRecordsId = healthRecordsId,
@@ -69,8 +79,14 @@ namespace EquityAfia.HealthRecordManagement.Application.MedicalRecords.Commands.
 
                 return responseDTO;
             }
+            catch (RequestTimeoutException ex)
+            {
+                // Handle request timeout exception
+                throw new Exception("The request timed out while waiting for a response.", ex);
+            }
             catch (Exception ex)
             {
+                // Handle any other exceptions and propagate
                 throw new Exception("An error occurred while processing your request", ex);
             }
         }

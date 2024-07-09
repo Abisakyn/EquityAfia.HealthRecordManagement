@@ -89,14 +89,16 @@ builder.Services.AddMassTransit(x =>
             h.Password("guest");
         });
 
+        cfg.ConfigureEndpoints(context);
+
         //Message to be displayed as queue name
-        cfg.ReceiveEndpoint("user-exists-queue", e =>
-        {
-            e.ConfigureConsumer<UserExistsConsumer>(context);
-        });
+        //cfg.ReceiveEndpoint("user-exists-queue", e =>
+        //{
+        //    e.ConfigureConsumer<UserExistsConsumer>(context);
+        //});
     });
 
-    x.AddConsumer<UserExistsConsumer>();
+    //x.AddConsumer<UserExistsConsumer>();
 });
 
 builder.Services.AddMassTransitHostedService();
